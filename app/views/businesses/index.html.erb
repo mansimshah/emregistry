@@ -1,0 +1,39 @@
+<% if @businesses.present? %>
+
+<h1>Business Information</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Active</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @businesses.each do |business| %>
+      <tr>
+        <td><%= business.name %></td>
+        <td><%= business.category %></td>
+        <td><%= business.is_active ? "Yes" : "No" %></td>
+        <td><%= image_tag(business.image.url,:width => 150, :height => 150, :crop => :fill) if business.image? %>
+        </td>
+        <td><%= link_to 'Show', business %></td>
+        <td>
+          <%= link_to 'Edit', edit_business_path(business) %>
+        </td>
+        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% else %>
+  <h3>No business information is added.</h3>
+<% end %>
+<br/><br/>
+
+<%= link_to 'New Business', new_business_path %>
